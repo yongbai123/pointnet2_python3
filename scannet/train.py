@@ -256,7 +256,7 @@ def eval_one_epoch(sess, ops, test_writer):
     global EPOCH_CNT
     is_training = False
     test_idxs = np.arange(0, len(TEST_DATASET))
-    num_batches = len(TEST_DATASET)/BATCH_SIZE
+    num_batches = len(TEST_DATASET)//BATCH_SIZE
 
     total_correct = 0
     total_seen = 0
@@ -298,7 +298,7 @@ def eval_one_epoch(sess, ops, test_writer):
         for l in range(NUM_CLASSES):
             total_seen_class[l] += np.sum((batch_label==l) & (batch_smpw>0))
             total_correct_class[l] += np.sum((pred_val==l) & (batch_label==l) & (batch_smpw>0))
-        for b in xrange(batch_label.shape[0]):
+        for b in range(batch_label.shape[0]):
             _, uvlabel, _ = pc_util.point_cloud_label_to_surface_voxel_label_fast(aug_data[b,batch_smpw[b,:]>0,:], np.concatenate((np.expand_dims(batch_label[b,batch_smpw[b,:]>0],1),np.expand_dims(pred_val[b,batch_smpw[b,:]>0],1)),axis=1), res=0.02)
             total_correct_vox += np.sum((uvlabel[:,0]==uvlabel[:,1])&(uvlabel[:,0]>0))
             total_seen_vox += np.sum(uvlabel[:,0]>0)
@@ -399,7 +399,7 @@ def eval_whole_scene_one_epoch(sess, ops, test_writer):
             total_seen_class[l] += np.sum((batch_label==l) & (batch_smpw>0))
             total_correct_class[l] += np.sum((pred_val==l) & (batch_label==l) & (batch_smpw>0))
 
-        for b in xrange(batch_label.shape[0]):
+        for b in range(batch_label.shape[0]):
             _, uvlabel, _ = pc_util.point_cloud_label_to_surface_voxel_label_fast(aug_data[b,batch_smpw[b,:]>0,:], np.concatenate((np.expand_dims(batch_label[b,batch_smpw[b,:]>0],1),np.expand_dims(pred_val[b,batch_smpw[b,:]>0],1)),axis=1), res=0.02)
             total_correct_vox += np.sum((uvlabel[:,0]==uvlabel[:,1])&(uvlabel[:,0]>0))
             total_seen_vox += np.sum(uvlabel[:,0]>0)

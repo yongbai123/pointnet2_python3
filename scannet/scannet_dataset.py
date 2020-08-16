@@ -112,7 +112,7 @@ class ScannetDatasetWholeScene():
                 point_sets.append(np.expand_dims(point_set,0)) # 1xNx3
                 semantic_segs.append(np.expand_dims(semantic_seg,0)) # 1xN
                 sample_weights.append(np.expand_dims(sample_weight,0)) # 1xN
-                point_sets = np.concatenate(tuple(point_sets),axis=0)
+        point_sets = np.concatenate(tuple(point_sets),axis=0)
         semantic_segs = np.concatenate(tuple(semantic_segs),axis=0)
         sample_weights = np.concatenate(tuple(sample_weights),axis=0)
         return point_sets, semantic_segs, sample_weights
